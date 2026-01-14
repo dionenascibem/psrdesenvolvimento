@@ -82,7 +82,7 @@ export const ConversionChart = ({ data }: ConversionChartProps) => {
                   return [`${formatInteger(v)}${extra}`, "Itens"];
                 }}
                 contentStyle={{
-                  backgroundColor:  "rgb(39, 50, 73)",                  
+                  backgroundColor:  "rgb(141, 152, 253)",                  
                   border: "1px solid hsl(220 30% 22%)",
                   borderRadius: "8px",
                   
