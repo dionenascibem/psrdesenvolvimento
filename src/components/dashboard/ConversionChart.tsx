@@ -25,7 +25,7 @@ export const ConversionChart = ({ data }: ConversionChartProps) => {
   const colors = getChartColors();
 
   const chartData = [
-    { label: "Entrou com proposta", value: data.propostas.com },
+    { label: "SITE MERDA", value: data.propostas.com },
     { label: "Entrou sem proposta", value: data.conversao.entrouSem },
     { label: "Virou pedido", value: data.conversao.virouPedido },
     { label: "Não virou pedido", value: data.conversao.naoVirou },
