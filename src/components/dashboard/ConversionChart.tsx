@@ -85,9 +85,9 @@ export const ConversionChart = ({ data }: ConversionChartProps) => {
                   backgroundColor: "hsl(220 45% 12%)",
                   border: "1px solid hsl(220 30% 22%)",
                   borderRadius: "8px",
-                  color: "white",
+                  
                 }}
-                labelStyle={{ color: colors.foreground }}
+                labelStyle={{ color: 'white' }}
               />
               <Bar dataKey="value" animationDuration={900} radius={[6, 6, 0, 0]}>
                 <LabelList
