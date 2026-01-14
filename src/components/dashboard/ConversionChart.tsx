@@ -88,6 +88,8 @@ export const ConversionChart = ({ data }: ConversionChartProps) => {
                   
                 }}
                 labelStyle={{ color: "#fff" }}
+
+                 itemStyle={{color: "#fff"}}
               />
               <Bar dataKey="value" animationDuration={900} radius={[6, 6, 0, 0]}>
                 <LabelList
