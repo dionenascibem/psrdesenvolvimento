@@ -82,12 +82,12 @@ export const ConversionChart = ({ data }: ConversionChartProps) => {
                   return [`${formatInteger(v)}${extra}`, "Itens"];
                 }}
                 contentStyle={{
-                  backgroundColor:  "rgb(141, 152, 253)",                  
+                  backgroundColor:  "hsl(220 45% 12%)",                  
                   border: "1px solid hsl(220 30% 22%)",
                   borderRadius: "8px",
                   
                 }}
-                labelStyle={{ color: colors.foreground }}
+                labelStyle={{ color: "#fff" }}
               />
               <Bar dataKey="value" animationDuration={900} radius={[6, 6, 0, 0]}>
                 <LabelList
