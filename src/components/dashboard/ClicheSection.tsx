@@ -101,8 +101,7 @@ export const ClicheSection = ({ data }: ClicheSectionProps) => {
                       border: "1px solid hsl(220 30% 22%)",
                       borderRadius: "8px",
                     }}
-                    labelStyle={{ color: "#fff" }}
-                    itemStyle={{ color: "#fff" }}
+                   
                   />
                   <Legend wrapperStyle={{ color: colors.muted }} />
                   <Bar
