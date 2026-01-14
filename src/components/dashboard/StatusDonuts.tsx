@@ -63,7 +63,8 @@ const DonutChart = ({
                   border: "1px solid hsl(220 30% 22%)",
                   borderRadius: "8px",
                 }}
-                labelStyle={{ color: chartColors.foreground }}
+                labelStyle={{ color: "#fff" }}
+                itemStyle={{ color: "#fff" }}
               />
               <Legend wrapperStyle={{ color: chartColors.muted }} />
               <Pie
@@ -73,8 +74,12 @@ const DonutChart = ({
                 innerRadius={55}
                 outerRadius={90}
                 animationDuration={900}
-                labelLine
-                label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
+                labelLine={{ stroke: "#fff" }}
+                label={({ percent, x, y }) => (
+                  <text x={x} y={y} fill="#fff" textAnchor="middle" dominantBaseline="central" fontSize={12}>
+                    {`${(percent * 100).toFixed(0)}%`}
+                  </text>
+                )}
               >
                 {data.map((_, i) => (
                   <Cell key={i} fill={colors[i]} stroke={colors[i]} />

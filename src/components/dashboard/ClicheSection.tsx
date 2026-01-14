@@ -101,6 +101,8 @@ export const ClicheSection = ({ data }: ClicheSectionProps) => {
                       border: "1px solid hsl(220 30% 22%)",
                       borderRadius: "8px",
                     }}
+                    labelStyle={{ color: "#fff" }}
+                    itemStyle={{ color: "#fff" }}
                   />
                   <Legend wrapperStyle={{ color: colors.muted }} />
                   <Bar
@@ -174,7 +176,16 @@ export const ClicheSection = ({ data }: ClicheSectionProps) => {
                       <CartesianGrid stroke={colors.grid} />
                       <XAxis dataKey="label" tick={{ fill: colors.tick, fontSize: 10 }} />
                       <YAxis tick={{ fill: colors.tick, fontSize: 10 }} tickFormatter={formatCurrency} />
-                      <Tooltip formatter={(v: number) => formatCurrency(v)} />
+                      <Tooltip
+                        formatter={(v: number) => formatCurrency(v)}
+                        contentStyle={{
+                          backgroundColor: "hsl(220 45% 12%)",
+                          border: "1px solid hsl(220 30% 22%)",
+                          borderRadius: "8px",
+                        }}
+                        labelStyle={{ color: "#fff" }}
+                        itemStyle={{ color: "#fff" }}
+                      />
                       <Bar dataKey="valor" name="Realizado (R$)" radius={[6, 6, 0, 0]}>
                         {kpiC.cat.map((item, i) => (
                           <Cell key={i} fill={catColors[item.key] || colors.primary} />
@@ -222,7 +233,16 @@ export const ClicheSection = ({ data }: ClicheSectionProps) => {
                       <CartesianGrid stroke={colors.grid} />
                       <XAxis dataKey="label" tick={{ fill: colors.tick, fontSize: 10 }} />
                       <YAxis tick={{ fill: colors.tick, fontSize: 10 }} tickFormatter={formatCurrency} />
-                      <Tooltip formatter={(v: number) => formatCurrency(v)} />
+                      <Tooltip
+                        formatter={(v: number) => formatCurrency(v)}
+                        contentStyle={{
+                          backgroundColor: "hsl(220 45% 12%)",
+                          border: "1px solid hsl(220 30% 22%)",
+                          borderRadius: "8px",
+                        }}
+                        labelStyle={{ color: "#fff" }}
+                        itemStyle={{ color: "#fff" }}
+                      />
                       <Bar dataKey="valor" name="Realizado (R$)" radius={[6, 6, 0, 0]}>
                         {kpiC.cc.map((item, i) => (
                           <Cell key={i} fill={ccColors[item.key] || colors.primary} />
@@ -281,7 +301,16 @@ export const ClicheSection = ({ data }: ClicheSectionProps) => {
                         tickFormatter={formatInteger}
                         allowDecimals={false}
                       />
-                      <Tooltip formatter={(v: number) => formatInteger(v)} />
+                      <Tooltip
+                        formatter={(v: number) => formatInteger(v)}
+                        contentStyle={{
+                          backgroundColor: "hsl(220 45% 12%)",
+                          border: "1px solid hsl(220 30% 22%)",
+                          borderRadius: "8px",
+                        }}
+                        labelStyle={{ color: "#fff" }}
+                        itemStyle={{ color: "#fff" }}
+                      />
                       <Bar dataKey="qtd" name="Quantidade" radius={[6, 6, 6, 6]}>
                         {kpiC.qtd.map((item, i) => (
                           <Cell key={i} fill={qtdColors[item.key] || colors.primary} />
