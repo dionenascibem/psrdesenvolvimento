@@ -157,7 +157,6 @@ export const FacasSection = ({ data }: FacasSectionProps) => {
                       borderRadius: "8px",
                     }}
                     labelStyle={{ color: "#fff" }}
-                    itemStyle={{ color: "#fff" }}
                   />
                   <Legend wrapperStyle={{ color: colors.muted }} />
                   <Bar
@@ -240,7 +239,6 @@ export const FacasSection = ({ data }: FacasSectionProps) => {
                       borderRadius: "8px",
                     }}
                     labelStyle={{ color: "#fff" }}
-                    itemStyle={{ color: "#fff" }}
                   />
                   <Legend wrapperStyle={{ color: colors.muted }} />
                   <Bar
