@@ -157,7 +157,7 @@ export const StatusDonuts = ({ data }: StatusDonutsProps) => {
           { label: "Sem proposta", value: data.propostas.sem },
           { label: "Com proposta", value: data.propostas.com },
         ]}
-        colors={[colors.rose, colors.emerald]}
+        colors={[colors.destructive, colors.success]}
         chartId="props"
         filename="com_sem_proposta_2025.svg"
       />
