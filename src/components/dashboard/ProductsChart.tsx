@@ -85,14 +85,16 @@ export const ProductsChart = ({ data }: ProductsChartProps) => {
                   position="top"
                   formatter={(v: number) => formatCurrency(v)}
                   fill={colors.foreground}
-                  fontSize={11}
+                  fontSize={14}
+                  fontWeight={600}
                 />
                 <LabelList
                   dataKey="qtd"
                   position="insideBottom"
                   formatter={(v: number) => formatInteger(v)}
                   fill={colors.muted}
-                  fontSize={10}
+                  fontSize={13}
+                  fontWeight={500}
                   offset={8}
                 />
               </Bar>
