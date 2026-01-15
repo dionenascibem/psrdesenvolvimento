@@ -1,12 +1,14 @@
+import { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { Printer } from "lucide-react";
 import logo from "@/assets/logo-psr.png";
 
 interface HeaderProps {
   onNavigate: (id: string) => void;
+  children?: ReactNode;
 }
 
-export const Header = ({ onNavigate }: HeaderProps) => {
+export const Header = ({ onNavigate, children }: HeaderProps) => {
   return (
     <header className="sticky top-0 z-10 header-gradient border-b border-border shadow-lg backdrop-blur-sm">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between gap-4 flex-wrap">
@@ -26,7 +28,7 @@ export const Header = ({ onNavigate }: HeaderProps) => {
           </div>
         </div>
 
-        <nav className="flex gap-2 flex-wrap no-print">
+        <nav className="flex gap-2 flex-wrap no-print items-center">
           <Button
             variant="outline"
             size="sm"
@@ -64,6 +66,7 @@ export const Header = ({ onNavigate }: HeaderProps) => {
           >
             Dados
           </Button>
+          {children}
         </nav>
       </div>
     </header>
