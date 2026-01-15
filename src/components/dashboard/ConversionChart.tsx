@@ -61,7 +61,7 @@ export const ConversionChart = ({ data }: ConversionChartProps) => {
               <CartesianGrid stroke={colors.grid} />
               <XAxis
                 dataKey="label"
-                tick={{ fill: colors.tick, fontSize: 11 }}
+                tick={{ fill: colors.tick, fontSize: 12 }}
                 interval={0}
                 angle={-15}
                 textAnchor="end"
@@ -97,7 +97,8 @@ export const ConversionChart = ({ data }: ConversionChartProps) => {
                   position="top"
                   formatter={(v: number) => formatInteger(v)}
                   fill={colors.foreground}
-                  fontSize={11}
+                  fontSize={14}
+                  fontWeight={600}
                 />
                 {chartData.map((_, i) => (
                   <Cell key={i} fill={barColors[i]} stroke={barColors[i]} />
