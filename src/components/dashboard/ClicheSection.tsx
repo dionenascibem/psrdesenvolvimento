@@ -116,7 +116,7 @@ export const ClicheSection = ({ data }: ClicheSectionProps) => {
                       position="top"
                       formatter={(v: number | null) => (v != null ? formatCurrency(v) : "")}
                       fill={colors.foreground}
-                      fontSize={10}
+                      fontSize={12}
                     />
                   </Bar>
                   <Line
@@ -173,8 +173,8 @@ export const ClicheSection = ({ data }: ClicheSectionProps) => {
                       margin={{ top: 18, right: 8, left: 0, bottom: 8 }}
                     >
                       <CartesianGrid stroke={colors.grid} />
-                      <XAxis dataKey="label" tick={{ fill: colors.tick, fontSize: 10 }} />
-                      <YAxis tick={{ fill: colors.tick, fontSize: 10 }} tickFormatter={formatCurrency} />
+                      <XAxis dataKey="label" tick={{ fill: colors.tick, fontSize: 12 }} />
+                      <YAxis tick={{ fill: colors.tick, fontSize: 12 }} tickFormatter={formatCurrency} />
                       <Tooltip
                         formatter={(v: number) => formatCurrency(v)}
                         contentStyle={{
@@ -194,7 +194,7 @@ export const ClicheSection = ({ data }: ClicheSectionProps) => {
                           position="top"
                           formatter={(v: number) => formatCurrency(v)}
                           fill={colors.foreground}
-                          fontSize={9}
+                          fontSize={12}
                         />
                       </Bar>
                     </BarChart>
@@ -230,8 +230,8 @@ export const ClicheSection = ({ data }: ClicheSectionProps) => {
                       margin={{ top: 18, right: 8, left: 0, bottom: 8 }}
                     >
                       <CartesianGrid stroke={colors.grid} />
-                      <XAxis dataKey="label" tick={{ fill: colors.tick, fontSize: 10 }} />
-                      <YAxis tick={{ fill: colors.tick, fontSize: 10 }} tickFormatter={formatCurrency} />
+                      <XAxis dataKey="label" tick={{ fill: colors.tick, fontSize: 12 }} />
+                      <YAxis tick={{ fill: colors.tick, fontSize: 12 }} tickFormatter={formatCurrency} />
                       <Tooltip
                         formatter={(v: number) => formatCurrency(v)}
                         contentStyle={{
@@ -251,7 +251,7 @@ export const ClicheSection = ({ data }: ClicheSectionProps) => {
                           position="top"
                           formatter={(v: number) => formatCurrency(v)}
                           fill={colors.foreground}
-                          fontSize={9}
+                          fontSize={12}
                         />
                       </Bar>
                     </BarChart>
@@ -291,12 +291,12 @@ export const ClicheSection = ({ data }: ClicheSectionProps) => {
                       <YAxis
                         type="category"
                         dataKey="label"
-                        tick={{ fill: colors.tick, fontSize: 9 }}
+                        tick={{ fill: colors.tick, fontSize: 12 }}
                         width={100}
                       />
                       <XAxis
                         type="number"
-                        tick={{ fill: colors.tick, fontSize: 10 }}
+                        tick={{ fill: colors.tick, fontSize: 12 }}
                         tickFormatter={formatInteger}
                         allowDecimals={false}
                       />
@@ -319,7 +319,7 @@ export const ClicheSection = ({ data }: ClicheSectionProps) => {
                           position="right"
                           formatter={(v: number) => formatInteger(v)}
                           fill={colors.foreground}
-                          fontSize={10}
+                          fontSize={12}
                         />
                       </Bar>
                     </BarChart>

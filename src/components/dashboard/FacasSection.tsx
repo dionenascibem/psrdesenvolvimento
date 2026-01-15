@@ -171,7 +171,7 @@ export const FacasSection = ({ data }: FacasSectionProps) => {
                       position="top"
                       formatter={(v: number | null) => (v != null ? formatCurrency(v) : "")}
                       fill={colors.foreground}
-                      fontSize={10}
+                      fontSize={12}
                     />
                   </Bar>
                   <Line
@@ -253,7 +253,7 @@ export const FacasSection = ({ data }: FacasSectionProps) => {
                       position="top"
                       formatter={(v: number | null) => (v != null ? formatCurrency(v) : "")}
                       fill={colors.foreground}
-                      fontSize={10}
+                      fontSize={12}
                     />
                   </Bar>
                   <Line

@@ -144,7 +144,7 @@ export const RevenueEvolution = ({ data }: RevenueEvolutionProps) => {
                     position="top"
                     formatter={(v: number) => (v ? formatInteger(v) : "")}
                     fill={colors.foreground}
-                    fontSize={10}
+                    fontSize={12}
                   />
                 </Bar>
                 <Area
