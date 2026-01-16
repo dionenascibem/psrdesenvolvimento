@@ -33,6 +33,8 @@ export interface DashboardData {
     qtd: QuantityItem[];
     prevV: number;
     real: (number | null)[];
+    prevVProd: number;
+    realProd: (number | null)[];
   };
   kpiF: {
     tot: { venda: number; compr: number; rep: number; nao: number };
@@ -79,6 +81,11 @@ export const DEFAULT_DATA: DashboardData = {
     real: [
       null, null, null, 14327.98, 22042.29, 8083.05,
       15440, 6550.36, 7557.92, 15479, 12797, 4147,
+    ],
+    prevVProd: 5267.77,
+    realProd: [
+      null, null, null, 9421.31, 7608.27, 2327.23,
+      4762, 5267.77, 38.20, 3007, 1894, 4867,
     ],
   },
   kpiF: {
