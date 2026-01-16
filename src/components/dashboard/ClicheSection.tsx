@@ -25,6 +25,7 @@ interface ClicheSectionProps {
 
 export const ClicheSection = ({ data }: ClicheSectionProps) => {
   const prevRealRef = useRef<HTMLDivElement>(null);
+  const prevRealProdRef = useRef<HTMLDivElement>(null);
   const catRef = useRef<HTMLDivElement>(null);
   const ccRef = useRef<HTMLDivElement>(null);
   const qtdRef = useRef<HTMLDivElement>(null);
@@ -32,8 +33,9 @@ export const ClicheSection = ({ data }: ClicheSectionProps) => {
 
   const { kpiC } = data;
   const prevV = kpiC.prevV ?? 15000;
+  const prevVProd = kpiC.prevVProd ?? 5267.77;
 
-  // Predicted vs Actual data
+  // Desenvolvimento - Predicted vs Actual data
   const prevRealData = MONTHS.map((mes, i) => ({
     mes,
     real: kpiC.real?.[i] ?? null,
@@ -46,6 +48,20 @@ export const ClicheSection = ({ data }: ClicheSectionProps) => {
     0
   );
   const achievement = totPrev ? (totReal / totPrev) * 100 : 0;
+
+  // Produção - Predicted vs Actual data
+  const prevRealProdData = MONTHS.map((mes, i) => ({
+    mes,
+    real: kpiC.realProd?.[i] ?? null,
+    prev: prevVProd,
+  }));
+
+  const totPrevProd = prevVProd * 12;
+  const totRealProd = (kpiC.realProd ?? []).reduce(
+    (a: number, v) => a + (typeof v === "number" ? v : 0),
+    0
+  );
+  const achievementProd = totPrevProd ? (totRealProd / totPrevProd) * 100 : 0;
 
   // Colors for category charts
   const catColors: Record<string, string> = {
@@ -76,10 +92,10 @@ export const ClicheSection = ({ data }: ClicheSectionProps) => {
           </div>
         </CardHeader>
         <CardContent className="space-y-6">
-          {/* Predicted vs Actual Chart */}
+          {/* Desenvolvimento - Predicted vs Actual Chart */}
           <div>
             <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
-              <h3 className="text-sm font-semibold">CLICHÊS • PREVISTO × REALIZADO</h3>
+              <h3 className="text-sm font-semibold">CLICHÊS DESENVOLVIMENTO • PREVISTO × REALIZADO</h3>
               <span className="text-xs text-muted-foreground">
                 Previsto fixo: {formatCurrency(prevV)} / mês • Atingimento:{" "}
                 {achievement.toFixed(1)}%
@@ -146,7 +162,87 @@ export const ClicheSection = ({ data }: ClicheSectionProps) => {
                 size="sm"
                 onClick={() => {
                   const svg = prevRealRef.current?.querySelector("svg");
-                  if (svg) svgExport(svg as SVGSVGElement, "cliches_previsto_x_realizado_2025.svg");
+                  if (svg) svgExport(svg as SVGSVGElement, "cliches_desenvolvimento_previsto_x_realizado_2025.svg");
+                }}
+                className="gap-2"
+              >
+                <Download className="h-4 w-4" />
+                Exportar SVG
+              </Button>
+            </div>
+          </div>
+
+          {/* Produção - Predicted vs Actual Chart */}
+          <div>
+            <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
+              <h3 className="text-sm font-semibold">CLICHÊS PRODUÇÃO • PREVISTO × REALIZADO</h3>
+              <span className="text-xs text-muted-foreground">
+                Previsto fixo: {formatCurrency(prevVProd)} / mês • Atingimento:{" "}
+                {achievementProd.toFixed(1)}%
+              </span>
+            </div>
+            <div ref={prevRealProdRef} className="w-full h-[320px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <ComposedChart
+                  data={prevRealProdData}
+                  margin={{ top: 16, right: 20, left: 0, bottom: 16 }}
+                >
+                  <CartesianGrid stroke={colors.grid} />
+                  <XAxis dataKey="mes" tick={{ fill: colors.tick, fontSize: 12 }} />
+                  <YAxis tick={{ fill: colors.tick, fontSize: 12 }} tickFormatter={formatCurrency} />
+                  <Tooltip
+                    formatter={(v: number) => formatCurrency(v)}
+                    contentStyle={{
+                      backgroundColor: "hsl(220 45% 12%)",
+                      border: "1px solid hsl(220 30% 22%)",
+                      borderRadius: "8px",
+                    }}
+                   
+                  />
+                  <Legend wrapperStyle={{ color: colors.muted }} />
+                  <Bar
+                    dataKey="real"
+                    name="REALIZADO — PSR"
+                    radius={[8, 8, 0, 0]}
+                    fill={colors.warningFill}
+                    stroke={colors.warning}
+                  >
+                    <LabelList
+                      dataKey="real"
+                      position="top"
+                      formatter={(v: number | null) => (v != null ? formatCurrency(v) : "")}
+                      fill={colors.foreground}
+                      fontSize={12}
+                    />
+                  </Bar>
+                  <Line
+                    type="monotone"
+                    dataKey="prev"
+                    name="PREVISTO"
+                    stroke={colors.primary}
+                    dot={{ r: 3 }}
+                  />
+                </ComposedChart>
+              </ResponsiveContainer>
+            </div>
+            <div className="mt-3 p-3 rounded-xl bg-secondary/50 border border-border flex flex-wrap gap-4 justify-end text-xs">
+              <span>
+                <strong>Total realizado:</strong> {formatCurrency(totRealProd)}
+              </span>
+              <span>
+                <strong>Total previsto:</strong> {formatCurrency(totPrevProd)}
+              </span>
+              <span className="text-muted-foreground">
+                <strong>Atingimento:</strong> {achievementProd.toFixed(1)}%
+              </span>
+            </div>
+            <div className="mt-2 flex justify-end no-print">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  const svg = prevRealProdRef.current?.querySelector("svg");
+                  if (svg) svgExport(svg as SVGSVGElement, "cliches_producao_previsto_x_realizado_2025.svg");
                 }}
                 className="gap-2"
               >
