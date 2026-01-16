@@ -40,9 +40,14 @@ const Index = () => {
     setData(newData);
   };
 
-  const handleSignOut = async () => {
-    await signOut();
-    navigate("/auth", { replace: true });
+  const handleSignOut = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    try {
+      await signOut();
+    } finally {
+      navigate("/auth", { replace: true });
+    }
   };
 
   if (loading) {
