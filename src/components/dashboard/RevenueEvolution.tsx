@@ -6,7 +6,6 @@ import {
   ComposedChart,
   Bar,
   Line,
-  Area,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -29,52 +28,73 @@ export const RevenueEvolution = ({ data }: RevenueEvolutionProps) => {
 
   const chartData = MONTHS.map((mes, i) => ({
     mes,
-    valor: data.fat2025[i],
-    qtd: data.devMes?.[i] ?? null,
+    valor2025: data.fat2025[i],
+    valor2026: data.fat2026[i],
+    qtd2025: data.devMes?.[i] ?? null,
+    qtd2026: data.devMes2026?.[i] ?? null,
   }));
 
-  const validValues = data.fat2025.filter((v): v is number => typeof v === "number");
-  const fatTotal = validValues.reduce((a, b) => a + b, 0);
-  const fatMedia = validValues.length ? fatTotal / validValues.length : 0;
+  const validValues2025 = data.fat2025.filter((v): v is number => typeof v === "number");
+  const fatTotal2025 = validValues2025.reduce((a, b) => a + b, 0);
+  const fatMedia2025 = validValues2025.length ? fatTotal2025 / validValues2025.length : 0;
 
-  const bestMonthIdx = data.fat2025.reduce(
-    (mx, v, i) => (v != null && (data.fat2025[mx] ?? -Infinity) < v ? i : mx),
-    0
-  );
-  const worstMonthIdx = data.fat2025.reduce(
-    (mn, v, i) => (v != null && (data.fat2025[mn] ?? Infinity) > v ? i : mn),
-    0
-  );
+  const validValues2026 = data.fat2026.filter((v): v is number => typeof v === "number");
+  const fatTotal2026 = validValues2026.reduce((a, b) => a + b, 0);
+  const fatMedia2026 = validValues2026.length ? fatTotal2026 / validValues2026.length : 0;
 
   const handleExport = () => {
     const svg = chartRef.current?.querySelector("svg");
-    if (svg) svgExport(svg as SVGSVGElement, "faturamento_itens_2025.svg");
+    if (svg) svgExport(svg as SVGSVGElement, "faturamento_comparativo_2025_2026.svg");
   };
 
   return (
     <div className="space-y-4">
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="card-gradient border-border shadow-lg">
           <CardContent className="pt-4 pb-4">
             <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">
-              Faturamento total 2025
+              Faturamento 2025
             </h3>
             <p className="text-2xl font-extrabold tracking-tight">
-              {formatCurrency(fatTotal)}
+              {formatCurrency(fatTotal2025)}
             </p>
-            <span className="pill mt-2">Melhor: {MONTHS[bestMonthIdx]}</span>
+            <span className="text-xs text-muted-foreground">
+              Média: {formatCurrency(fatMedia2025)}
+            </span>
           </CardContent>
         </Card>
         <Card className="card-gradient border-border shadow-lg">
           <CardContent className="pt-4 pb-4">
             <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">
-              Média mensal (com valor)
+              Faturamento 2026
             </h3>
             <p className="text-2xl font-extrabold tracking-tight">
-              {formatCurrency(fatMedia)}
+              {formatCurrency(fatTotal2026)}
             </p>
-            <span className="pill mt-2">Pior: {MONTHS[worstMonthIdx]}</span>
+            <span className="text-xs text-muted-foreground">
+              Média: {formatCurrency(fatMedia2026)}
+            </span>
+          </CardContent>
+        </Card>
+        <Card className="card-gradient border-border shadow-lg">
+          <CardContent className="pt-4 pb-4">
+            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">
+              Itens 2025
+            </h3>
+            <p className="text-2xl font-extrabold tracking-tight">
+              {formatInteger(data.devMes.filter((v): v is number => v !== null).reduce((a, b) => a + b, 0))}
+            </p>
+          </CardContent>
+        </Card>
+        <Card className="card-gradient border-border shadow-lg">
+          <CardContent className="pt-4 pb-4">
+            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">
+              Itens 2026
+            </h3>
+            <p className="text-2xl font-extrabold tracking-tight">
+              {formatInteger(data.devMes2026.filter((v): v is number => v !== null).reduce((a, b) => a + b, 0))}
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -84,26 +104,20 @@ export const RevenueEvolution = ({ data }: RevenueEvolutionProps) => {
         <CardHeader className="pb-2">
           <div className="flex items-center justify-between flex-wrap gap-2">
             <CardTitle className="text-base font-bold">
-              EVOLUÇÃO ANUAL DE FATURAMENTO (2025)
+              COMPARATIVO FATURAMENTO & ITENS — 2025 × 2026
             </CardTitle>
             <span className="text-xs text-muted-foreground">
-              Linha: faturado • Barras: itens
+              Barras: itens • Linhas: faturado
             </span>
           </div>
         </CardHeader>
         <CardContent>
-          <div ref={chartRef} className="w-full h-[360px]">
+          <div ref={chartRef} className="w-full h-[400px]">
             <ResponsiveContainer width="100%" height="100%">
               <ComposedChart
                 data={chartData}
                 margin={{ top: 16, right: 20, left: 0, bottom: 16 }}
               >
-                <defs>
-                  <linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor={colors.successFill} />
-                    <stop offset="100%" stopColor={colors.successLight} />
-                  </linearGradient>
-                </defs>
                 <CartesianGrid stroke={colors.grid} />
                 <XAxis dataKey="mes" tick={{ fill: colors.tick, fontSize: 12 }} />
                 <YAxis
@@ -120,7 +134,7 @@ export const RevenueEvolution = ({ data }: RevenueEvolutionProps) => {
                 />
                 <Tooltip
                   formatter={(v: number, name: string) =>
-                    name === "Faturado 2025 (R$)" ? formatCurrency(v) : formatInteger(v)
+                    name.includes("R$") ? formatCurrency(v) : formatInteger(v)
                   }
                   contentStyle={{
                     backgroundColor: "hsl(220 45% 12%)",
@@ -131,49 +145,74 @@ export const RevenueEvolution = ({ data }: RevenueEvolutionProps) => {
                   itemStyle={{ color: "#fff" }}
                 />
                 <Legend wrapperStyle={{ color: colors.muted }} />
+
+                {/* Bars - Items */}
                 <Bar
                   yAxisId="R"
-                  dataKey="qtd"
-                  name="Itens desenvolvidos"
+                  dataKey="qtd2025"
+                  name="Itens 2025"
                   fill={colors.primaryFill}
                   stroke={colors.primary}
-                  radius={[6, 6, 6, 6]}
+                  radius={[4, 4, 0, 0]}
                 >
                   <LabelList
-                    dataKey="qtd"
+                    dataKey="qtd2025"
                     position="top"
                     formatter={(v: number) => (v ? formatInteger(v) : "")}
                     fill={colors.foreground}
-                    fontSize={12}
+                    fontSize={11}
                   />
                 </Bar>
-                <Area
+                <Bar
+                  yAxisId="R"
+                  dataKey="qtd2026"
+                  name="Itens 2026"
+                  fill={colors.emerald}
+                  stroke={colors.success}
+                  radius={[4, 4, 0, 0]}
+                >
+                  <LabelList
+                    dataKey="qtd2026"
+                    position="top"
+                    formatter={(v: number) => (v ? formatInteger(v) : "")}
+                    fill={colors.foreground}
+                    fontSize={11}
+                  />
+                </Bar>
+
+                {/* Lines - Revenue */}
+                <Line
                   yAxisId="L"
                   type="monotone"
-                  dataKey="valor"
-                  stroke="transparent"
-                  fill="url(#areaFill)"
+                  dataKey="valor2025"
+                  name="Faturado 2025 (R$)"
+                  stroke={colors.primary}
+                  strokeWidth={2}
+                  dot={{ r: 3 }}
                   connectNulls
                 />
                 <Line
                   yAxisId="L"
                   type="monotone"
-                  dataKey="valor"
-                  name="Faturado 2025 (R$)"
+                  dataKey="valor2026"
+                  name="Faturado 2026 (R$)"
                   stroke={colors.success}
+                  strokeWidth={2}
                   dot={{ r: 3 }}
                   connectNulls
+                  strokeDasharray="6 3"
                 />
+
                 {data.meta && (
                   <ReferenceLine
                     yAxisId="L"
                     y={data.meta}
-                    stroke={colors.primary}
+                    stroke={colors.warning}
                     strokeDasharray="6 4"
                     label={{
                       value: `Meta: ${formatCurrency(data.meta)}`,
                       position: "top",
-                      fill: colors.primary,
+                      fill: colors.warning,
                     }}
                   />
                 )}
@@ -184,13 +223,13 @@ export const RevenueEvolution = ({ data }: RevenueEvolutionProps) => {
           {/* Info Box */}
           <div className="mt-4 p-3 rounded-xl bg-secondary/50 border border-border flex flex-wrap gap-4 justify-end text-xs">
             <span>
-              <strong>Faturado:</strong> {formatCurrency(data.financeiro.faturado)}
+              <strong>Faturado 2025:</strong> {formatCurrency(data.financeiro.faturado)}
             </span>
             <span>
               <strong>Cancelado:</strong> {formatCurrency(data.financeiro.cancelado)}
             </span>
             <span className="text-muted-foreground">
-              Itens: {formatInteger(data.itens.finalizados + data.itens.cancelados)} (Fin:{" "}
+              Itens 2025: {formatInteger(data.itens.finalizados + data.itens.cancelados)} (Fin:{" "}
               {formatInteger(data.itens.finalizados)} • Canc:{" "}
               {formatInteger(data.itens.cancelados)})
             </span>
