@@ -25,8 +25,10 @@ export interface DashboardData {
   propostas: { com: number; sem: number };
   conversao: { entrouSem: number; virouPedido: number; naoVirou: number };
   fat2025: (number | null)[];
+  fat2026: (number | null)[];
   meta: number | null;
   devMes: (number | null)[];
+  devMes2026: (number | null)[];
   kpiC: {
     cat: CategoryItem[];
     cc: CategoryItem[];
@@ -62,7 +64,9 @@ export const DEFAULT_DATA: DashboardData = {
     115014.82, 162736.6, 254443.1, 101276.86, 104766.52, 40545.76,
   ],
   meta: null,
+  fat2026: [null, null, null, null, null, null, null, null, null, null, null, null],
   devMes: [null, null, 19, 40, 45, 53, 65, 46, 96, 44, 25, 25],
+  devMes2026: [null, null, null, null, null, null, null, null, null, null, null, null],
   kpiC: {
     cat: [
       { key: "des", label: "DESENVOLVIMENTO", valor: 122347.09 },

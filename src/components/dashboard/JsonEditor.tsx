@@ -22,8 +22,10 @@ export const JsonEditor = ({ data, onApply }: JsonEditorProps) => {
         propostas: data.propostas,
         conversao: data.conversao,
         fat2025: data.fat2025,
+        fat2026: data.fat2026,
         meta: data.meta,
         devMes: data.devMes,
+        devMes2026: data.devMes2026,
         kpiC: data.kpiC,
         kpiF: data.kpiF,
       },
@@ -104,10 +106,18 @@ export const JsonEditor = ({ data, onApply }: JsonEditorProps) => {
         newData.fat2025 = parsed.fat2025.map((v: any) => (v === null ? null : +v));
       }
 
+      if (Array.isArray(parsed.fat2026) && parsed.fat2026.length === 12) {
+        newData.fat2026 = parsed.fat2026.map((v: any) => (v === null ? null : +v));
+      }
+
       newData.meta = parsed.meta === null || parsed.meta === undefined ? null : +parsed.meta;
 
       if (Array.isArray(parsed.devMes) && parsed.devMes.length === 12) {
         newData.devMes = parsed.devMes.map((v: any) => (v === null ? null : +v));
+      }
+
+      if (Array.isArray(parsed.devMes2026) && parsed.devMes2026.length === 12) {
+        newData.devMes2026 = parsed.devMes2026.map((v: any) => (v === null ? null : +v));
       }
 
       // KPI Clichês
