@@ -93,7 +93,7 @@ export const DEFAULT_DATA: DashboardData = {
     ],
   },
   kpiF: {
-    tot: { venda: 9705.0, compr: 3365.08, rep: 1682.58, nao: 3365.08 },
+    tot: { venda: 3555.0, compr: 1682.58, rep: 1682.58, nao: 0 },
     devPrev: [5000, null, null, null, null, null, null, null, null, null, null, null],
     devReal: [932.58, null, null, null, null, null, null, null, null, null, null, null],
     prPrev: [9000, null, null, null, null, null, null, null, null, null, null, null],
