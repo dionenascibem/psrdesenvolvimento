@@ -6,6 +6,7 @@ import { ProductsChart } from "@/components/dashboard/ProductsChart";
 import { RevenueEvolution } from "@/components/dashboard/RevenueEvolution";
 import { StatusDonuts } from "@/components/dashboard/StatusDonuts";
 import { ConversionChart } from "@/components/dashboard/ConversionChart";
+import { VendaCustoChart } from "@/components/dashboard/VendaCustoChart";
 import { ClicheSection } from "@/components/dashboard/ClicheSection";
 import { FacasSection } from "@/components/dashboard/FacasSection";
 import { JsonEditor } from "@/components/dashboard/JsonEditor";
@@ -96,6 +97,9 @@ const Index = () => {
 
         {/* Conversion Chart */}
         <ConversionChart data={data} />
+
+        {/* Venda x Custo de Clichês */}
+        <VendaCustoChart data={data} />
 
         {/* Clichês Section */}
         <ClicheSection data={data} />
