@@ -29,14 +29,22 @@ export const VendaCustoChart = ({ data }: VendaCustoChartProps) => {
 
   const items: VendaCustoItem[] = data.vendaCusto?.[filter] ?? [];
 
-  const chartData = items.map((item) => ({
-    label: `${item.tipo}\n${item.codigo}\n${item.pedido}`,
-    shortLabel: item.codigo,
-    venda: item.venda,
-    custo: item.custo,
-    repassado: item.repassado,
-    cliente: item.cliente,
-  }));
+  const chartData = items.map((item) => {
+    const pct = item.venda ? ((item.custo / item.venda) * 100).toFixed(1) : "0.0";
+    return {
+      label: `${item.tipo}\n${item.codigo}\n${item.pedido}`,
+      shortLabel: item.codigo,
+      venda: item.venda,
+      custo: item.custo,
+      repassado: item.repassado,
+      cliente: item.cliente,
+      pct,
+    };
+  });
+
+  const totalVenda = items.reduce((s, i) => s + i.venda, 0);
+  const totalCusto = items.reduce((s, i) => s + i.custo, 0);
+  const totalPct = totalVenda ? ((totalCusto / totalVenda) * 100).toFixed(1) : "0.0";
 
   const handleExport = () => {
     const svg = chartRef.current?.querySelector("svg");
@@ -67,7 +75,7 @@ export const VendaCustoChart = ({ data }: VendaCustoChartProps) => {
             className="font-medium"
             style={{ color: d.repassado ? colors.success : colors.destructive }}
           >
-            {formatCurrency(d.custo)}
+            {formatCurrency(d.custo)} ({d.pct}%)
           </span>
         </p>
         <p className="text-xs mt-1" style={{ color: d.repassado ? colors.success : colors.destructive }}>
@@ -84,6 +92,9 @@ export const VendaCustoChart = ({ data }: VendaCustoChartProps) => {
           <CardTitle className="text-base font-bold">
             VALOR DE VENDA × CUSTO DE CLICHÊS
           </CardTitle>
+          <span className="text-xs text-muted-foreground">
+            Custo total: {totalPct}% da venda
+          </span>
           <div className="flex gap-1">
             {(["ETQ", "BOB", "ROT"] as FilterKey[]).map((key) => (
               <Button
