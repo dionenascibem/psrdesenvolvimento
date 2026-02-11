@@ -16,6 +16,16 @@ export interface QuantityItem {
   qtd: number;
 }
 
+export interface VendaCustoItem {
+  tipo: string;
+  codigo: string;
+  pedido: string;
+  cliente: string;
+  venda: number;
+  custo: number;
+  repassado: boolean;
+}
+
 export interface DashboardData {
   produtos: Product[];
   total: { qtd: number; valor: number };
@@ -29,6 +39,11 @@ export interface DashboardData {
   meta: number | null;
   devMes: (number | null)[];
   devMes2026: (number | null)[];
+  vendaCusto: {
+    ETQ: VendaCustoItem[];
+    BOB: VendaCustoItem[];
+    ROT: VendaCustoItem[];
+  };
   kpiC: {
     cat: CategoryItem[];
     cc: CategoryItem[];
@@ -67,6 +82,26 @@ export const DEFAULT_DATA: DashboardData = {
   fat2026: [78144.5, null, null, null, null, null, null, null, null, null, null, null],
   devMes: [null, null, 19, 40, 45, 53, 65, 46, 96, 44, 25, 25],
   devMes2026: [40, null, null, null, null, null, null, null, null, null, null, null],
+  vendaCusto: {
+    ETQ: [
+      { tipo: "ETIQ", codigo: "102561", pedido: "2301", cliente: "SUPERMERCADO SUPERSERRA LTDA", venda: 1100, custo: 47.38, repassado: true },
+      { tipo: "ETIQ", codigo: "102574", pedido: "2312", cliente: "ANA CLARA COMERCIO DE DOCES LTDA", venda: 731, custo: 104.38, repassado: false },
+      { tipo: "ETIQ", codigo: "102575", pedido: "2313", cliente: "CARBOGRAFTE EQUIPAMENTOS INDUSTRIAIS LTDA", venda: 1300, custo: 168.23, repassado: true },
+      { tipo: "ETIQ", codigo: "102573", pedido: "2311", cliente: "PAX SUPERMERCADOS LTDA", venda: 6150, custo: 59.1, repassado: true },
+      { tipo: "ETIQ", codigo: "200759", pedido: "2302", cliente: "SUPER MERCADO REAL DE EDEN LTDA", venda: 8928, custo: 1526.91, repassado: false },
+      { tipo: "ETIQ", codigo: "102564", pedido: "", cliente: "", venda: 873, custo: 41.42, repassado: true },
+      { tipo: "ETIQ", codigo: "102565", pedido: "2300", cliente: "", venda: 1100, custo: 87.08, repassado: true },
+      { tipo: "ETIQ", codigo: "102566", pedido: "", cliente: "T.S.P. DISTRIBUIDORA DE MOTOS PECAS E BIKE LTDA", venda: 2200, custo: 40.63, repassado: true },
+    ],
+    BOB: [
+      { tipo: "BOB", codigo: "200757", pedido: "2308", cliente: "MG COMERCIO DE EMBALAGENS LTDA", venda: 23880, custo: 541.16, repassado: false },
+      { tipo: "BOB", codigo: "200756", pedido: "2299", cliente: "NOVO HORIZONTE COMERCIO DE GENEROS ALIMENTICIOS LTD", venda: 3582, custo: 1110.54, repassado: false },
+    ],
+    ROT: [
+      { tipo: "ROT", codigo: "300619", pedido: "2306", cliente: "L & A COSMETICOS LTDA", venda: 6636, custo: 765.6, repassado: true },
+      { tipo: "ROT", codigo: "300620", pedido: "2310", cliente: "L & A COSMETICOS LTDA", venda: 8364.2, custo: 804.14, repassado: true },
+    ],
+  },
   kpiC: {
     cat: [
       { key: "des", label: "DESENVOLVIMENTO", valor: 5074.44 },
