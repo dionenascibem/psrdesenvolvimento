@@ -26,6 +26,7 @@ export const JsonEditor = ({ data, onApply }: JsonEditorProps) => {
         meta: data.meta,
         devMes: data.devMes,
         devMes2026: data.devMes2026,
+        vendaCusto: data.vendaCusto,
         kpiC: data.kpiC,
         kpiF: data.kpiF,
       },
@@ -175,6 +176,24 @@ export const JsonEditor = ({ data, onApply }: JsonEditorProps) => {
         }
         if (Array.isArray(parsed.kpiF.prReal) && parsed.kpiF.prReal.length === 12) {
           newData.kpiF.prReal = parsed.kpiF.prReal.map((v: any) => (v === null ? null : +v));
+        }
+      }
+
+      // Venda x Custo
+      if (parsed.vendaCusto) {
+        newData.vendaCusto = { ...newData.vendaCusto };
+        for (const key of ["ETQ", "BOB", "ROT"] as const) {
+          if (Array.isArray(parsed.vendaCusto[key])) {
+            newData.vendaCusto[key] = parsed.vendaCusto[key].map((item: any) => ({
+              tipo: String(item.tipo ?? ""),
+              codigo: String(item.codigo ?? ""),
+              pedido: String(item.pedido ?? ""),
+              cliente: String(item.cliente ?? ""),
+              venda: +(item.venda ?? 0),
+              custo: +(item.custo ?? 0),
+              repassado: !!item.repassado,
+            }));
+          }
         }
       }
 
