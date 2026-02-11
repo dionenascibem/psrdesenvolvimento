@@ -27,7 +27,7 @@ export const VendaCustoChart = ({ data }: VendaCustoChartProps) => {
   const chartRef = useRef<HTMLDivElement>(null);
   const colors = getChartColors();
 
-  const items: VendaCustoItem[] = data.vendaCusto[filter];
+  const items: VendaCustoItem[] = data.vendaCusto?.[filter] ?? [];
 
   const chartData = items.map((item) => ({
     label: `${item.tipo}\n${item.codigo}\n${item.pedido}`,
