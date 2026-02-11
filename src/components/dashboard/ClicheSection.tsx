@@ -70,7 +70,7 @@ export const ClicheSection = ({ data }: ClicheSectionProps) => {
     tot: colors.success,
   };
   const ccColors: Record<string, string> = {
-    psr: colors.warning,
+    psr: colors.destructive,
     cli: colors.success,
   };
   const qtdColors: Record<string, string> = {
@@ -92,6 +92,93 @@ export const ClicheSection = ({ data }: ClicheSectionProps) => {
           </div>
         </CardHeader>
         <CardContent className="space-y-6">
+          {/* Detail Charts Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {/* Category Chart */}
+            <Card className="bg-secondary/30 border-border">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-semibold">
+                  CLICHÊS • POR CATEGORIA (R$)
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div ref={catRef} className="w-full h-[250px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={kpiC.cat} margin={{ top: 18, right: 8, left: 0, bottom: 8 }}>
+                      <CartesianGrid stroke={colors.grid} />
+                      <XAxis dataKey="label" tick={{ fill: colors.tick, fontSize: 12 }} />
+                      <YAxis tick={{ fill: colors.tick, fontSize: 12 }} tickFormatter={formatCurrency} />
+                      <Tooltip formatter={(v: number) => formatCurrency(v)} contentStyle={{ backgroundColor: "hsl(220 45% 12%)", border: "1px solid hsl(220 30% 22%)", borderRadius: "8px" }} labelStyle={{ color: "#fff" }} itemStyle={{ color: "#fff" }} />
+                      <Bar dataKey="valor" name="Realizado (R$)" radius={[6, 6, 0, 0]}>
+                        {kpiC.cat.map((item, i) => (<Cell key={i} fill={catColors[item.key] || colors.primary} />))}
+                        <LabelList dataKey="valor" position="top" formatter={(v: number) => formatCurrency(v)} fill={colors.foreground} fontSize={12} />
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+                <div className="mt-2 flex justify-end no-print">
+                  <Button variant="ghost" size="sm" onClick={() => { const svg = catRef.current?.querySelector("svg"); if (svg) svgExport(svg as SVGSVGElement, "cliches_cat.svg"); }}><Download className="h-4 w-4" /></Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Cost Center Chart */}
+            <Card className="bg-secondary/30 border-border">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-semibold">
+                  CLICHÊS • CENTRO DE CUSTO (R$)
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div ref={ccRef} className="w-full h-[250px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={kpiC.cc} margin={{ top: 18, right: 8, left: 0, bottom: 8 }}>
+                      <CartesianGrid stroke={colors.grid} />
+                      <XAxis dataKey="label" tick={{ fill: colors.tick, fontSize: 12 }} />
+                      <YAxis tick={{ fill: colors.tick, fontSize: 12 }} tickFormatter={formatCurrency} />
+                      <Tooltip formatter={(v: number) => formatCurrency(v)} contentStyle={{ backgroundColor: "hsl(220 45% 12%)", border: "1px solid hsl(220 30% 22%)", borderRadius: "8px" }} labelStyle={{ color: "#fff" }} itemStyle={{ color: "#fff" }} />
+                      <Bar dataKey="valor" name="Realizado (R$)" radius={[6, 6, 0, 0]}>
+                        {kpiC.cc.map((item, i) => (<Cell key={i} fill={ccColors[item.key] || colors.primary} />))}
+                        <LabelList dataKey="valor" position="top" formatter={(v: number) => formatCurrency(v)} fill={colors.foreground} fontSize={12} />
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+                <div className="mt-2 flex justify-end no-print">
+                  <Button variant="ghost" size="sm" onClick={() => { const svg = ccRef.current?.querySelector("svg"); if (svg) svgExport(svg as SVGSVGElement, "cliches_cc.svg"); }}><Download className="h-4 w-4" /></Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Quantity Chart */}
+            <Card className="bg-secondary/30 border-border">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-semibold">
+                  CLICHÊS • QTD (DESENV × REPOSIÇÃO)
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div ref={qtdRef} className="w-full h-[250px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={kpiC.qtd} layout="vertical" margin={{ top: 12, right: 20, left: 0, bottom: 8 }}>
+                      <CartesianGrid stroke={colors.grid} />
+                      <YAxis type="category" dataKey="label" tick={{ fill: colors.tick, fontSize: 12 }} width={100} />
+                      <XAxis type="number" tick={{ fill: colors.tick, fontSize: 12 }} tickFormatter={formatInteger} allowDecimals={false} />
+                      <Tooltip formatter={(v: number) => formatInteger(v)} contentStyle={{ backgroundColor: "hsl(220 45% 12%)", border: "1px solid hsl(220 30% 22%)", borderRadius: "8px" }} labelStyle={{ color: "#fff" }} itemStyle={{ color: "#fff" }} />
+                      <Bar dataKey="qtd" name="Quantidade" radius={[6, 6, 6, 6]}>
+                        {kpiC.qtd.map((item, i) => (<Cell key={i} fill={qtdColors[item.key] || colors.primary} />))}
+                        <LabelList dataKey="qtd" position="right" formatter={(v: number) => formatInteger(v)} fill={colors.foreground} fontSize={12} />
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+                <div className="mt-2 flex justify-end no-print">
+                  <Button variant="ghost" size="sm" onClick={() => { const svg = qtdRef.current?.querySelector("svg"); if (svg) svgExport(svg as SVGSVGElement, "cliches_qtd.svg"); }}><Download className="h-4 w-4" /></Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
           {/* Desenvolvimento - Predicted vs Actual Chart */}
           <div>
             <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
@@ -252,190 +339,6 @@ export const ClicheSection = ({ data }: ClicheSectionProps) => {
             </div>
           </div>
 
-          {/* Detail Charts Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {/* Category Chart */}
-            <Card className="bg-secondary/30 border-border">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-semibold">
-                  CLICHÊS • POR CATEGORIA (R$)
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div ref={catRef} className="w-full h-[250px]">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                      data={kpiC.cat}
-                      margin={{ top: 18, right: 8, left: 0, bottom: 8 }}
-                    >
-                      <CartesianGrid stroke={colors.grid} />
-                      <XAxis dataKey="label" tick={{ fill: colors.tick, fontSize: 12 }} />
-                      <YAxis tick={{ fill: colors.tick, fontSize: 12 }} tickFormatter={formatCurrency} />
-                      <Tooltip
-                        formatter={(v: number) => formatCurrency(v)}
-                        contentStyle={{
-                          backgroundColor: "hsl(220 45% 12%)",
-                          border: "1px solid hsl(220 30% 22%)",
-                          borderRadius: "8px",
-                        }}
-                        labelStyle={{ color: "#fff" }}
-                        itemStyle={{ color: "#fff" }}
-                      />
-                      <Bar dataKey="valor" name="Realizado (R$)" radius={[6, 6, 0, 0]}>
-                        {kpiC.cat.map((item, i) => (
-                          <Cell key={i} fill={catColors[item.key] || colors.primary} />
-                        ))}
-                        <LabelList
-                          dataKey="valor"
-                          position="top"
-                          formatter={(v: number) => formatCurrency(v)}
-                          fill={colors.foreground}
-                          fontSize={12}
-                        />
-                      </Bar>
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-                <div className="mt-2 flex justify-end no-print">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => {
-                      const svg = catRef.current?.querySelector("svg");
-                      if (svg) svgExport(svg as SVGSVGElement, "cliches_cat.svg");
-                    }}
-                  >
-                    <Download className="h-4 w-4" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Cost Center Chart */}
-            <Card className="bg-secondary/30 border-border">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-semibold">
-                  CLICHÊS • CENTRO DE CUSTO (R$)
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div ref={ccRef} className="w-full h-[250px]">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                      data={kpiC.cc}
-                      margin={{ top: 18, right: 8, left: 0, bottom: 8 }}
-                    >
-                      <CartesianGrid stroke={colors.grid} />
-                      <XAxis dataKey="label" tick={{ fill: colors.tick, fontSize: 12 }} />
-                      <YAxis tick={{ fill: colors.tick, fontSize: 12 }} tickFormatter={formatCurrency} />
-                      <Tooltip
-                        formatter={(v: number) => formatCurrency(v)}
-                        contentStyle={{
-                          backgroundColor: "hsl(220 45% 12%)",
-                          border: "1px solid hsl(220 30% 22%)",
-                          borderRadius: "8px",
-                        }}
-                        labelStyle={{ color: "#fff" }}
-                        itemStyle={{ color: "#fff" }}
-                      />
-                      <Bar dataKey="valor" name="Realizado (R$)" radius={[6, 6, 0, 0]}>
-                        {kpiC.cc.map((item, i) => (
-                          <Cell key={i} fill={ccColors[item.key] || colors.primary} />
-                        ))}
-                        <LabelList
-                          dataKey="valor"
-                          position="top"
-                          formatter={(v: number) => formatCurrency(v)}
-                          fill={colors.foreground}
-                          fontSize={12}
-                        />
-                      </Bar>
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-                <div className="mt-2 flex justify-end no-print">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => {
-                      const svg = ccRef.current?.querySelector("svg");
-                      if (svg) svgExport(svg as SVGSVGElement, "cliches_cc.svg");
-                    }}
-                  >
-                    <Download className="h-4 w-4" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Quantity Chart */}
-            <Card className="bg-secondary/30 border-border">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-semibold">
-                  CLICHÊS • QTD (DESENV × REPOSIÇÃO)
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div ref={qtdRef} className="w-full h-[250px]">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                      data={kpiC.qtd}
-                      layout="vertical"
-                      margin={{ top: 12, right: 20, left: 0, bottom: 8 }}
-                    >
-                      <CartesianGrid stroke={colors.grid} />
-                      <YAxis
-                        type="category"
-                        dataKey="label"
-                        tick={{ fill: colors.tick, fontSize: 12 }}
-                        width={100}
-                      />
-                      <XAxis
-                        type="number"
-                        tick={{ fill: colors.tick, fontSize: 12 }}
-                        tickFormatter={formatInteger}
-                        allowDecimals={false}
-                      />
-                      <Tooltip
-                        formatter={(v: number) => formatInteger(v)}
-                        contentStyle={{
-                          backgroundColor: "hsl(220 45% 12%)",
-                          border: "1px solid hsl(220 30% 22%)",
-                          borderRadius: "8px",
-                        }}
-                        labelStyle={{ color: "#fff" }}
-                        itemStyle={{ color: "#fff" }}
-                      />
-                      <Bar dataKey="qtd" name="Quantidade" radius={[6, 6, 6, 6]}>
-                        {kpiC.qtd.map((item, i) => (
-                          <Cell key={i} fill={qtdColors[item.key] || colors.primary} />
-                        ))}
-                        <LabelList
-                          dataKey="qtd"
-                          position="right"
-                          formatter={(v: number) => formatInteger(v)}
-                          fill={colors.foreground}
-                          fontSize={12}
-                        />
-                      </Bar>
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-                <div className="mt-2 flex justify-end no-print">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => {
-                      const svg = qtdRef.current?.querySelector("svg");
-                      if (svg) svgExport(svg as SVGSVGElement, "cliches_qtd.svg");
-                    }}
-                  >
-                    <Download className="h-4 w-4" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
         </CardContent>
       </Card>
     </section>
