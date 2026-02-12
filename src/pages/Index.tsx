@@ -4,6 +4,7 @@ import { Header } from "@/components/dashboard/Header";
 import { KPICards } from "@/components/dashboard/KPICards";
 import { ProductsChart } from "@/components/dashboard/ProductsChart";
 import { RevenueEvolution } from "@/components/dashboard/RevenueEvolution";
+import { GaugeCharts } from "@/components/dashboard/GaugeCharts";
 import { StatusDonuts } from "@/components/dashboard/StatusDonuts";
 import { ConversionChart } from "@/components/dashboard/ConversionChart";
 import { VendaCustoChart } from "@/components/dashboard/VendaCustoChart";
@@ -91,6 +92,9 @@ const Index = () => {
 
         {/* Revenue Evolution */}
         <RevenueEvolution data={data} />
+
+        {/* Gauge Charts - Tempo de Resposta */}
+        <GaugeCharts data={data} />
 
         {/* Status Donut Charts */}
         <StatusDonuts data={data} />
