@@ -60,6 +60,11 @@ export interface DashboardData {
     prPrev: (number | null)[];
     prReal: (number | null)[];
   };
+  tempoResposta?: {
+    desenvolvimento: number;
+    comercial: number;
+    cliche: number;
+  };
 }
 
 export const DEFAULT_DATA: DashboardData = {
@@ -133,5 +138,10 @@ export const DEFAULT_DATA: DashboardData = {
     devReal: [932.58, null, null, null, null, null, null, null, null, null, null, null],
     prPrev: [9000, null, null, null, null, null, null, null, null, null, null, null],
     prReal: [4588.85, null, null, null, null, null, null, null, null, null, null, null],
+  },
+  tempoResposta: {
+    desenvolvimento: 1.5,
+    comercial: 1.5,
+    cliche: 3.0,
   },
 };
