@@ -198,7 +198,15 @@ export const JsonEditor = ({ data, onApply }: JsonEditorProps) => {
         }
       }
 
-      onApply(newData);
+      // Tempo de Resposta
+      if (parsed.tempoResposta) {
+        newData.tempoResposta = {
+          desenvolvimento: +(parsed.tempoResposta.desenvolvimento ?? newData.tempoResposta?.desenvolvimento ?? 0),
+          comercial: +(parsed.tempoResposta.comercial ?? newData.tempoResposta?.comercial ?? 0),
+          cliche: +(parsed.tempoResposta.cliche ?? newData.tempoResposta?.cliche ?? 0),
+        };
+      }
+
       setStatus("success");
       setErrorMsg("");
 
