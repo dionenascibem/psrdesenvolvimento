@@ -29,6 +29,7 @@ export const JsonEditor = ({ data, onApply }: JsonEditorProps) => {
         vendaCusto: data.vendaCusto,
         kpiC: data.kpiC,
         kpiF: data.kpiF,
+        tempoResposta: data.tempoResposta,
       },
       null,
       2
