@@ -69,24 +69,24 @@ export interface DashboardData {
 
 export const DEFAULT_DATA: DashboardData = {
   produtos: [
-    { nome: "BOBINA", qtd: 9, valor: 31134.0 },
-    { nome: "ETIQUETA", qtd: 29, valor: 23445.0 },
-    { nome: "RÓTULO", qtd: 2, valor: 15000.2 },
+    { nome: "BOBINA", qtd: 2, valor: 0 },
+    { nome: "ETIQUETA", qtd: 14, valor: 53963 },
+    { nome: "RÓTULO", qtd: 12, valor: 46103.94 },
   ],
-  total: { qtd: 40, valor: 78579.2 },
-  financeiro: { faturado: 78144.5, cancelado: 437.7 },
-  itens: { finalizados: 27, cancelados: 13 },
-  prazo: { noPrazo: 22, atrasados: 5 },
-  propostas: { com: 6, sem: 34 },
-  conversao: { entrouSem: 34, virouPedido: 22, naoVirou: 12 },
+  total: { qtd: 28, valor: 78579.2 },
+  financeiro: { faturado: 8159.60, cancelado: 5400 },
+  itens: { finalizados: 5, cancelados: 1 },
+  prazo: { noPrazo: 6, atrasados: 1 },
+  propostas: { com: 2, sem: 26 },
+  conversao: { entrouSem: 26, virouPedido: 3, naoVirou: 23 },
   fat2025: [
-    null, null, 57218.31, 107826.7, 156192.11, 102083.74,
+    null, null, 5721, 107826.7, 156192.11, 102083.74,
     115014.82, 162736.6, 254443.1, 101276.86, 104766.52, 40545.76,
   ],
   meta: null,
-  fat2026: [78144.5, null, null, null, null, null, null, null, null, null, null, null],
+  fat2026: [78144.5, 92662.30, 8159.60, null, null, null, null, null, null, null, null, null],
   devMes: [null, null, 19, 40, 45, 53, 65, 46, 96, 44, 25, 25],
-  devMes2026: [40, null, null, null, null, null, null, null, null, null, null, null],
+  devMes2026: [40, 35, 28, null, null, null, null, null, null, null, null, null],
   vendaCusto: {
     ETQ: [
       { tipo: "ETIQ", codigo: "102561", pedido: "2301", cliente: "SUPERMERCADO SUPERSERRA LTDA", venda: 1100, custo: 47.38, repassado: false },
