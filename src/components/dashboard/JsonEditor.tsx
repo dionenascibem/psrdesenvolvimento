@@ -37,7 +37,7 @@ export const JsonEditor = ({ data, onApply }: JsonEditorProps) => {
 
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   const handleApply = () => {
     try {
