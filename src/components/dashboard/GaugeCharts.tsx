@@ -16,9 +16,9 @@ const getLevel = (
   dias: number,
   t: { otimo: number; bom: number; regular: number }
 ): { label: string; pct: number; color: string } => {
-  if (dias <= t.otimo) return { label: "ÓTIMO", pct: 100, color: "hsl(142 71% 45%)" };
+  if (dias < t.otimo) return { label: "ÓTIMO", pct: 100, color: "hsl(142 71% 45%)" };
   if (dias <= t.bom) return { label: "BOM", pct: 75, color: "hsl(82 70% 45%)" };
-  if (dias <= t.regular) return { label: "REGULAR", pct: 50, color: "hsl(48 96% 53%)" };
+  if (dias < t.regular) return { label: "REGULAR", pct: 50, color: "hsl(48 96% 53%)" };
   return { label: "RUIM", pct: 25, color: "hsl(0 84% 60%)" };
 };
 
