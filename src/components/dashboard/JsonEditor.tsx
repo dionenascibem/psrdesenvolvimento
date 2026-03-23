@@ -207,6 +207,7 @@ export const JsonEditor = ({ data, onApply }: JsonEditorProps) => {
         };
       }
 
+      onApply(newData);
       setStatus("success");
       setErrorMsg("");
 
