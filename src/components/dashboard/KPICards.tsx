@@ -16,7 +16,7 @@ export const KPICards = ({ data }: KPICardsProps) => {
       <Card className="card-gradient border-border shadow-lg">
         <CardContent className="pt-4 pb-4">
           <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">
-            Quantidade total (2025)
+            Quantidade total
           </h3>
           <p className="text-2xl font-extrabold tracking-tight">
             {formatInteger(data.total.qtd)}
