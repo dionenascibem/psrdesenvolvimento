@@ -20,7 +20,7 @@ export const Header = ({ onNavigate, children }: HeaderProps) => {
           />
           <div className="flex flex-col">
             <h1 className="text-lg md:text-xl font-extrabold tracking-tight">
-              KPI – Performance & Aquisições (2025)
+              KPI – Performance & Aquisições
             </h1>
             <span className="text-xs text-muted-foreground">
               Painel de indicadores • PSR
